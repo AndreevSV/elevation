@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PROJECT</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/8f92f66fee.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROJECT</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/src/css/style.css">
-</head>
-
-<body>
-  <script src="src/js/main.js" type="module"></script>
-</body>
-
+  <body>
+    <form>
+      <label for="searchField">Enter a search string:</label>
+      <input
+        type="search"
+        name="search-contact"
+        id="searchField"
+        placeholder="Type name or phone"
+      />
+      <input disabled type="submit" id="submitButton" value="Search" />
+    </form>
+    <div id="contacts-info">
+      <p></p>
+    </div>
+    <script src="src/js/main.js" type="module"></script>
+  </body>
 </html>
