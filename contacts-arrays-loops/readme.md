@@ -1,4 +1,3 @@
-/*
 Assignment 1 - 01.04.2024
 Array Order Methods 
 1.	Write a function that takes the array of contacts and returns a new array sorted by last name. 
@@ -12,5 +11,3 @@ Looping Through Arrays
 2.	Write a function that takes an ID as a parameter and returns the contact with that ID. 
 3.	Create a function that counts how many contacts are from a specific country. The country should be a parameter of the function. 
 4.	Write a function that returns a new array of contacts that are within a given age range, e.g., 25 to 35 years old.
-*/
-
