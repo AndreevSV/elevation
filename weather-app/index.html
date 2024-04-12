@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta
+      name="description"
+      content="Weather application with favorites cities"
+    />
+    <meta name="keywords" content="weather, forecast " />
+    <script
+      src="https://kit.fontawesome.com/8f92f66fee.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <div>
+        <ul>
+          <li><a href="#">Main</a></li>
+          <li><a href="./html/favourites.html">Favourites</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>
+            <i id="colorModeButton" class="fa-solid fa-circle-half-stroke"></i>
+            <span  id="colorModeString">Light mode</span>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <div class="form">
+        <form action="search">
+          <label for="search"></label>
+          <input
+            type="search"
+            name="search"
+            id="searchField"
+            placeholder="Type a city"
+          />
+          <input type="submit" value="Search" />
+        </form>
+      </div>
+      <div class="main-box">
+        <div>
+          <div class="city-block">
+            <img src="./img/telaviv.jpg" alt="Tel Aviv" />
+            <div class="weather" id="weather">
+              <div class="city" id="targetCity">City</div>
+              <div class="temperature" id="temperature">Temperatura</div>
+            </div>
+          </div>
+          <div class="favourite" id="favourite">
+            <i class="fa-regular fa-star"></i>
+            <!-- <i class="fa-solid fa-star"></i> -->
+            Favourite
+          </div>
+        </div>
+        <div id="weatherNow"><h1>Weather now</h1></div>
+        <div class="days-container">
+          <div>day1</div>
+          <div>day2</div>
+          <div>day3</div>
+          <div>day4</div>
+          <div>day5</div>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer">@All rights reserved</footer>
+    <script src="./js/util.js"></script>
+  </body>
+</html>
