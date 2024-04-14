@@ -14,6 +14,7 @@
       src="https://kit.fontawesome.com/8f92f66fee.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   </head>
   <body>
     <header>
@@ -27,18 +28,18 @@
         <ul>
           <li>
             <i id="colorModeButton" class="fa-solid fa-circle-half-stroke"></i>
-            <span  id="colorModeString">Light mode</span>
+            <span id="colorModeString">Light mode</span>
           </li>
         </ul>
       </div>
     </header>
     <main>
       <div class="form">
-        <form action="search">
+        <form action="searchEl">
           <label for="search"></label>
           <input
             type="search"
-            name="search"
+            name="searchEl"
             id="searchField"
             placeholder="Type a city"
           />
@@ -48,30 +49,60 @@
       <div class="main-box">
         <div>
           <div class="city-block">
-            <img src="./img/telaviv.jpg" alt="Tel Aviv" />
+            <img id="weatherIcon" src="./img/01-s.png" alt="Weather Icon" />
             <div class="weather" id="weather">
-              <div class="city" id="targetCity">City</div>
-              <div class="temperature" id="temperature">Temperatura</div>
+              <div class="city" id="targetCity">Tel Aviv</div>
+              <div class="temperature" id="temperature">Temperature</div>
             </div>
           </div>
-          <div class="favourite" id="favourite">
-            <i class="fa-regular fa-star"></i>
-            <!-- <i class="fa-solid fa-star"></i> -->
-            Favourite
+          <div class="favourite" id="favouritesStar">
+            <i id="toFavourites" class="fa-regular fa-star"></i>
+            Add City To Favourites
           </div>
         </div>
-        <div id="weatherNow"><h1>Weather now</h1></div>
-        <div class="days-container">
-          <div>day1</div>
-          <div>day2</div>
-          <div>day3</div>
-          <div>day4</div>
-          <div>day5</div>
+        <div id="weatherText"><h1>Weather now</h1></div>
+        <div id="fiveDaysContainer" class="days-container">
+          <div id="day1">
+            <p>dateOfWeek</p>
+            <p>date</p>
+            <p>Temperature</p>
+            <p>IconPhrase</p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day2">
+            <p>dateOfWeek</p>
+            <p>date</p>
+            <p>Temperature</p>
+            <p>IconPhrase</p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day3">
+            <p>dateOfWeek</p>
+            <p>date</p>
+            <p>Temperature</p>
+            <p>IconPhrase</p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day4">
+            <p>dateOfWeek</p>
+            <p>date</p>
+            <p>Temperature</p>
+            <p>IconPhrase</p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day5">
+            <p>dateOfWeek</p>
+            <p>date</p>
+            <p>Temperature</p>
+            <p>IconPhrase</p>
+            <img src="" alt="Weather Icon" />
+          </div>
         </div>
       </div>
     </main>
 
     <footer id="footer">@All rights reserved</footer>
     <script src="./js/util.js"></script>
+    <script type="module" src="./index.js"></script>
   </body>
 </html>

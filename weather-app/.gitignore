@@ -1,0 +1,5 @@
+node_modules
+api.json
+data.json
+currentconditions.json
+5DaysForecast.json
