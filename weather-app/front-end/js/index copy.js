@@ -4,8 +4,8 @@ import {
   getCurrentConditions,
   getFiveDaysForecast,
   isCityInFavourites,
-} from "./js/logic";
-// import moment from "moment"; // Connect as CDN
+} from "./js/logic.js";
+import moment from "moment"; // Connect as CDN
 
 const SERVER = {
   url: "http://localhost:3000/",

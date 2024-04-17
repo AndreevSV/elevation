@@ -1,5 +1,4 @@
 node_modules
-api.json
-data.json
-currentconditions.json
-5DaysForecast.json
+back-end/src/config
+front-end/config
+back-end

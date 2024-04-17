@@ -1,0 +1,25 @@
+[
+    {
+      "LocalObservationDateTime": "2024-04-13T17:47:00+07:00",
+      "EpochTime": 1713005220,
+      "WeatherText": "Mostly cloudy",
+      "WeatherIcon": 6,
+      "HasPrecipitation": false,
+      "PrecipitationType": null,
+      "IsDayTime": true,
+      "Temperature": {
+        "Metric": {
+          "Value": 29.3,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Imperial": {
+          "Value": 85,
+          "Unit": "F",
+          "UnitType": 18
+        }
+      },
+      "MobileLink": "http://www.accuweather.com/en/vn/hanoi/353412/current-weather/353412?lang=en-us",
+      "Link": "http://www.accuweather.com/en/vn/hanoi/353412/current-weather/353412?lang=en-us"
+    }
+  ]

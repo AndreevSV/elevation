@@ -43,13 +43,17 @@
             id="searchField"
             placeholder="Type a city"
           />
-          <input type="submit" value="Search" />
         </form>
+        <div id="autocomplete-results"></div>
       </div>
       <div class="main-box">
         <div>
           <div class="city-block">
-            <img id="weatherIcon" src="./img/01-s.png" alt="Weather Icon" />
+            <img
+              id="weatherIcon"
+              src="./public/img/01-s.png"
+              alt="Weather Icon"
+            />
             <div class="weather" id="weather">
               <div class="city" id="targetCity">Tel Aviv</div>
               <div class="temperature" id="temperature">Temperature</div>
@@ -102,7 +106,7 @@
     </main>
 
     <footer id="footer">@All rights reserved</footer>
-    <script src="./js/util.js"></script>
+    <script src="js/color.theme.js"></script>
     <script type="module" src="./index.js"></script>
   </body>
 </html>

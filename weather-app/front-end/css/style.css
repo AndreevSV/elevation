@@ -23,11 +23,8 @@ header {
   border-bottom: 1px solid black;
 }
 
-#colorModeButton:hover {
-  cursor: pointer;
-}
-
-#colorModeString:hover {
+#colorModeButton:hover,
+#toFavourites:hover {
   cursor: pointer;
 }
 
@@ -64,7 +61,7 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("../img/spring.jpg");
+    background-image: url("../public/img/spring.jpg");
     position: absolute;
     background-size: cover;
     background-position: center;
