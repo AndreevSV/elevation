@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta
+      name="description"
+      content="Weather application with favorites cities"
+    />
+    <meta name="keywords" content="weather, forecast " />
+    <script
+      src="https://kit.fontawesome.com/8f92f66fee.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li id="defaultCity">Tel Aviv</li>
+          <li id="previousCity">Previous</li>
+          <li id="favorites" class="dropdown">Favorites
+            <ul id="favoritesList" class="dropdown-content">
+              <li></li>
+          </ul>
+          </li>
+        </ul>
+      </nav>
+      <div>
+        <ul>
+          <li>
+            <i id="colorModeButton" class="fa-solid fa-circle-half-stroke"></i>
+            <span id="colorModeString">Light mode</span>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <div class="autocomplete">
+        <input
+          type="text"
+          id="cityInput"
+          placeholder="Start type a city name"
+        />
+        <ul id="cityList" class="autocomplete-items"></ul>
+      </div>
+      <div class="main-box">
+        <div>
+          <div class="city-block">
+            <img id="weatherIcon" class="current-weather-icon" src="" alt="Weather Icon" />
+            <div id="weather" class="weather" >
+              <div id="currentCity" class="city" ></div>
+              <div class="temperature" id="temperature"></div>
+            </div>
+          </div>
+          <div id="favorite" class="favorite">
+            <i id="toFavorites" class="fa-regular fa-star"></i>
+            To/From Favorites
+          </div>
+        </div>
+        <div id="weatherText" class="weather-text"></div>
+        <div id="fiveDaysContainer" class="days-container">
+          <div id="day1">
+            <p id="dateOfWeek"></p>
+            <p id="date"></p>
+            <p id="Temperature"></p>
+            <p id="IconPhrase"></p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day2">
+            <p id="dateOfWeek"></p>
+            <p id="date"></p>
+            <p id="Temperature"></p>
+            <p id="IconPhrase"></p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day3">
+            <p id="dateOfWeek"></p>
+            <p id="date"></p>
+            <p id="Temperature"></p>
+            <p id="IconPhrase"></p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day4">
+            <p id="dateOfWeek"></p>
+            <p id="date"></p>
+            <p id="Temperature"></p>
+            <p id="IconPhrase"></p>
+            <img src="" alt="Weather Icon" />
+          </div>
+          <div id="day5">
+            <p id="dateOfWeek"></p>
+            <p id="date"></p>
+            <p id="Temperature"></p>
+            <p id="IconPhrase"></p>
+            <img src="" alt="Weather Icon" />
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer">@All rights reserved</footer>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

@@ -2,3 +2,5 @@ node_modules
 back-end/src/config
 front-end/config
 back-end
+key.js
+
