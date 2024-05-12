@@ -13,7 +13,7 @@ async function loadData(path) {
       return JSON.parse(data);
     case CONFIG.authorsFilePath:
       data = await fs.readFile(path);
-      return JSON.parse(data);
+      return JSON.parse(data); 
   }
 }
 
