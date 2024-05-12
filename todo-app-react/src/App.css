@@ -1,0 +1,48 @@
+#root {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 900px;
+}
+
+.inputPanel {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  margin: 2px;
+  width: 100%;
+  border: 1px solid #5e5353;
+  border-radius: 5px;
+}
+
+.todoItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  margin: 2px;
+  width: 98%;
+  border: 1px solid #5e5353;
+  border-radius: 5px;
+}
+
+img {
+  padding: 3px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.todoItemsList {
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+  margin: 2px;
+  width: 100%;
+  border: 1px solid #5e5353;
+  border-radius: 5px;
+}

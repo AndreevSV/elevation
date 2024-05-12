@@ -1,0 +1,174 @@
+{
+    "Headline": {
+      "EffectiveDate": "2024-04-17T07:00:00+07:00",
+      "EffectiveEpochDate": 1713312000,
+      "Severity": 5,
+      "Text": "A thunderstorm Wednesday morning",
+      "Category": "thunderstorm",
+      "EndDate": "2024-04-17T13:00:00+07:00",
+      "EndEpochDate": 1713333600,
+      "MobileLink": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?lang=en-us",
+      "Link": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?lang=en-us"
+    },
+    "DailyForecasts": [
+      {
+        "Date": "2024-04-13T07:00:00+07:00",
+        "EpochDate": 1712966400,
+        "Temperature": {
+          "Minimum": {
+            "Value": 77,
+            "Unit": "F",
+            "UnitType": 18
+          },
+          "Maximum": {
+            "Value": 90,
+            "Unit": "F",
+            "UnitType": 18
+          }
+        },
+        "Day": {
+          "Icon": 17,
+          "IconPhrase": "Partly sunny w/ t-storms",
+          "HasPrecipitation": true,
+          "PrecipitationType": "Rain",
+          "PrecipitationIntensity": "Light"
+        },
+        "Night": {
+          "Icon": 38,
+          "IconPhrase": "Mostly cloudy",
+          "HasPrecipitation": false
+        },
+        "Sources": [
+          "AccuWeather"
+        ],
+        "MobileLink": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=1&lang=en-us",
+        "Link": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=1&lang=en-us"
+      },
+      {
+        "Date": "2024-04-14T07:00:00+07:00",
+        "EpochDate": 1713052800,
+        "Temperature": {
+          "Minimum": {
+            "Value": 77,
+            "Unit": "F",
+            "UnitType": 18
+          },
+          "Maximum": {
+            "Value": 91,
+            "Unit": "F",
+            "UnitType": 18
+          }
+        },
+        "Day": {
+          "Icon": 6,
+          "IconPhrase": "Mostly cloudy",
+          "HasPrecipitation": false
+        },
+        "Night": {
+          "Icon": 35,
+          "IconPhrase": "Partly cloudy",
+          "HasPrecipitation": false
+        },
+        "Sources": [
+          "AccuWeather"
+        ],
+        "MobileLink": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=2&lang=en-us",
+        "Link": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=2&lang=en-us"
+      },
+      {
+        "Date": "2024-04-15T07:00:00+07:00",
+        "EpochDate": 1713139200,
+        "Temperature": {
+          "Minimum": {
+            "Value": 76,
+            "Unit": "F",
+            "UnitType": 18
+          },
+          "Maximum": {
+            "Value": 89,
+            "Unit": "F",
+            "UnitType": 18
+          }
+        },
+        "Day": {
+          "Icon": 8,
+          "IconPhrase": "Dreary",
+          "HasPrecipitation": false
+        },
+        "Night": {
+          "Icon": 38,
+          "IconPhrase": "Mostly cloudy",
+          "HasPrecipitation": false
+        },
+        "Sources": [
+          "AccuWeather"
+        ],
+        "MobileLink": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=3&lang=en-us",
+        "Link": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=3&lang=en-us"
+      },
+      {
+        "Date": "2024-04-16T07:00:00+07:00",
+        "EpochDate": 1713225600,
+        "Temperature": {
+          "Minimum": {
+            "Value": 78,
+            "Unit": "F",
+            "UnitType": 18
+          },
+          "Maximum": {
+            "Value": 89,
+            "Unit": "F",
+            "UnitType": 18
+          }
+        },
+        "Day": {
+          "Icon": 7,
+          "IconPhrase": "Cloudy",
+          "HasPrecipitation": false
+        },
+        "Night": {
+          "Icon": 34,
+          "IconPhrase": "Mostly clear",
+          "HasPrecipitation": false
+        },
+        "Sources": [
+          "AccuWeather"
+        ],
+        "MobileLink": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=4&lang=en-us",
+        "Link": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=4&lang=en-us"
+      },
+      {
+        "Date": "2024-04-17T07:00:00+07:00",
+        "EpochDate": 1713312000,
+        "Temperature": {
+          "Minimum": {
+            "Value": 78,
+            "Unit": "F",
+            "UnitType": 18
+          },
+          "Maximum": {
+            "Value": 89,
+            "Unit": "F",
+            "UnitType": 18
+          }
+        },
+        "Day": {
+          "Icon": 6,
+          "IconPhrase": "Mostly cloudy",
+          "HasPrecipitation": true,
+          "PrecipitationType": "Rain",
+          "PrecipitationIntensity": "Light"
+        },
+        "Night": {
+          "Icon": 33,
+          "IconPhrase": "Clear",
+          "HasPrecipitation": false
+        },
+        "Sources": [
+          "AccuWeather"
+        ],
+        "MobileLink": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=5&lang=en-us",
+        "Link": "http://www.accuweather.com/en/vn/hanoi/353412/daily-weather-forecast/353412?day=5&lang=en-us"
+      }
+    ]
+  }
