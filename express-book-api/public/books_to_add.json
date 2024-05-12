@@ -1,0 +1,34 @@
+{
+  "books_to_add": [
+    {
+      "_id": 794,
+      "title": "Express.js in Action",
+      "isbn": "1617292427",
+      "pageCount": 0,
+      "thumbnailUrl": "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/hahn.jpg",
+      "status": "MEAP",
+      "authors": ["Evan M. Hahn"],
+      "categories": []
+    },
+    {
+      "_id": 795,
+      "title": "Learn Git in a Month of Lunches",
+      "isbn": "1617292419",
+      "pageCount": 0,
+      "thumbnailUrl": "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/umali.jpg",
+      "status": "MEAP",
+      "authors": ["Rick Umali"],
+      "categories": []
+    },
+    {
+      "_id": 796,
+      "title": "Understanding SPAs",
+      "isbn": "1617292435",
+      "pageCount": 0,
+      "thumbnailUrl": "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/scott2.jpg",
+      "status": "MEAP",
+      "authors": ["Emmit A. Scott", "Jr."],
+      "categories": []
+    }
+  ]
+}
