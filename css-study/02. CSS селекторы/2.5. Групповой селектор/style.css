@@ -1,0 +1,11 @@
+#mainHeading,
+p,
+span {
+  background-color: lightskyblue;
+}
+
+h1,
+h2,
+h3 {
+  background-color: darkgreen;
+}
