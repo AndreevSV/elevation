@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./useAuth";
 
 function LoginPage() {
- 
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const [loginInput, setLoginInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const navigate = useNavigate();
@@ -12,9 +11,10 @@ function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     login({ login: loginInput, password: passwordInput });
+    if (user) {
       navigate("/");
+    }
   };
-
 
   return (
     <div>
