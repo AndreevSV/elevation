@@ -1,24 +1,11 @@
 import users from "../mocks/jsons/users.json";
 import { useState, useEffect } from "react";
-import { v4 as uuid } from "uuid";
-import bcrypt from "bcryptjs";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import { User, Role } from "../types/user";
+import makeUUID from "../utils/makeUUID";
+import { encryptStr } from "../utils/encryptStr";
 
-export enum Role {
-  admin = 'admin',
-  user = 'user'
-}
-
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  role: Role
-}
-
-function CreateUserPage() {
+function SignUpPage() {
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState("");
@@ -51,10 +38,9 @@ function CreateUserPage() {
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
     const password2 = formData.get("password2") as string;
-    const id = uuid();
+    const id = makeUUID();
 
-    const salt = await bcrypt.genSalt(10);
-    const password = bcrypt.hashSync(password2, salt);
+    const password = encryptStr(password2);
 
     const user: User = {
       id,
@@ -62,11 +48,11 @@ function CreateUserPage() {
       lastName,
       email,
       password,
-      role: Role.user
+      role: Role.user,
     };
     users.push(user);
-    
-    navigate('/users') 
+
+    navigate("/users");
   };
 
   const validateEmail = (email: string) => {
@@ -257,4 +243,4 @@ function CreateUserPage() {
   );
 }
 
-export default CreateUserPage;
+export default SignUpPage;

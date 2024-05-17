@@ -1,14 +1,16 @@
-import { useContext, /*useEffect,*/ useState } from "react";
+import { useContext, useState } from "react";
 import users from "../mocks/jsons/users.json";
 import { useNavigate, Link } from "react-router-dom";
-import { UserContext } from "../components/UserContext";
-import { Role } from "./CreateUserPage";
+import { UserContext } from "../contexts/UserContext";
+import { User } from "../types/user";
+
+// import { encryptStr } from "../utils/encryptStr"
 
 function LoginPage() {
   const [underFromText, setUnderFromText] = useState<string>("");
-  
+
   const navigate = useNavigate();
-  const { setEmail, setRole } = useContext(UserContext);
+  const { setId, setEmail, setRole } = useContext(UserContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,21 +20,23 @@ function LoginPage() {
     email = email.trim();
     password = password.trim();
     if (validateUser(email, password)) {
+      setId(getUser(email).id);
       setEmail(email);
-      setRole(getUserRole(email));
-      navigate('/users')
+      setRole(getUser(email).role);
+      navigate("/users");
     } else {
-        setUnderFromText("Email or password not correct");
+      setUnderFromText("Email or password not correct");
     }
   };
 
-  const validateUser = ( email: string, password: string): boolean => {
+  const validateUser = (email: string, password: string): boolean => {
+    const passwordEncripted = password; // encryptStr(password);
     const index: number = users.findIndex((element) => element.email === email);
     if (index < 0) {
       console.log(`No user with such email or password found - ${email}`);
       return false;
     }
-    if (users[index].password !== password) {
+    if (users[index].password !== passwordEncripted) {
       console.log(`No user with such email or password found - ${email}`);
       return false;
     }
@@ -40,10 +44,9 @@ function LoginPage() {
     return true;
   };
 
-const getUserRole = (email: string): Role => {
-    const user = users.find(user => user.email === email);
-    return user ? user.role as Role : Role.user;
-};
+  const getUser = (email: string): User => {
+    return users.find((user) => user.email === email) as User;
+  };
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
