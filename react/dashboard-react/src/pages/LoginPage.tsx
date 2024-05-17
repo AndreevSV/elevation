@@ -1,16 +1,15 @@
 import { useContext, useState } from "react";
-import users from "../mocks/jsons/users.json";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { User } from "../types/user";
-
-// import { encryptStr } from "../utils/encryptStr"
+import { decipher } from "../utils/encryptStr"
 
 function LoginPage() {
   const [underFromText, setUnderFromText] = useState<string>("");
 
   const navigate = useNavigate();
-  const { setId, setEmail, setRole } = useContext(UserContext);
+  const { setId, setEmail, setFirstName, setLastName, setRole, users } =
+    useContext(UserContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +21,8 @@ function LoginPage() {
     if (validateUser(email, password)) {
       setId(getUser(email).id);
       setEmail(email);
+      setFirstName(getUser(email).firstName);
+      setLastName(getUser(email).lastName);
       setRole(getUser(email).role);
       navigate("/users");
     } else {
@@ -30,13 +31,17 @@ function LoginPage() {
   };
 
   const validateUser = (email: string, password: string): boolean => {
-    const passwordEncripted = password; // encryptStr(password);
+    console.log("🚀 ~ validateUser ~ password:", password)
     const index: number = users.findIndex((element) => element.email === email);
     if (index < 0) {
       console.log(`No user with such email or password found - ${email}`);
       return false;
     }
-    if (users[index].password !== passwordEncripted) {
+
+    const decryptedPassword = decipher('SECRET')(users[index].password);
+    console.log("🚀 ~ validateUser ~ decryptedPassword:", decryptedPassword)
+
+    if (decryptedPassword !== password) {
       console.log(`No user with such email or password found - ${email}`);
       return false;
     }

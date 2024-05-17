@@ -1,4 +1,12 @@
-function ModalWindow({ open, onClose, onDelete }: { open: boolean, onClose: () => void, onDelete: () => void }) {
+function ModalWindow({
+  open,
+  onClose,
+  onDelete,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onDelete: () => void;
+}) {
   if (!open) {
     return null;
   }
@@ -26,10 +34,7 @@ function ModalWindow({ open, onClose, onDelete }: { open: boolean, onClose: () =
             </p>
           </div>
           <div className="modal-footer">
-            <button type="button" 
-            className="btn btn-danger"
-            onClick={onDelete}
-            >
+            <button type="button" className="btn btn-danger" onClick={onDelete}>
               Delete
             </button>
             <button

@@ -1,6 +1,5 @@
-import usersData from "../mocks/jsons/users.json";
 import { UserContext } from "../contexts/UserContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import makeUUID from "../utils/makeUUID";
 
@@ -10,8 +9,7 @@ interface UsersPageProps {
 
 function UsersPage({ searchString }: UsersPageProps) {
   const navigate = useNavigate();
-  const loggedUser = useContext(UserContext);
-  const [users, setUsers] = useState(usersData);
+  const { id, role, users, setUsers } = useContext(UserContext);
 
   const filteredUsers = users.filter((user) => {
     return (
@@ -31,7 +29,7 @@ function UsersPage({ searchString }: UsersPageProps) {
   };
 
   const usersList = filteredUsers.map((user, index) => {
-    const { id, firstName, lastName, email, role } = user;
+    const { id: userId, firstName, lastName, email, role: userRole } = user;
     const key: string = makeUUID();
     return (
       <tr key={key}>
@@ -39,14 +37,14 @@ function UsersPage({ searchString }: UsersPageProps) {
         <td>{firstName}</td>
         <td>{lastName}</td>
         <td>{email}</td>
-        <td>{role}</td>
+        <td>{userRole}</td>
         <td>
           <button
             className={`btn btn-primary ${
-              loggedUser.role === "admin" ? "" : " disabled"
+              role === "admin" || id === userId ? "" : " disabled"
             }`}
             type="submit"
-            onClick={() => onEditClick(id)}
+            onClick={() => onEditClick(userId)}
           >
             Edit
           </button>
@@ -54,12 +52,10 @@ function UsersPage({ searchString }: UsersPageProps) {
         <td>
           <button
             className={`btn btn-danger ${
-              loggedUser.role === "user" || user.role === "admin"
-                ? " disabled"
-                : ""
+              role === "user" || userRole === "admin" ? " disabled" : ""
             }`}
             type="submit"
-            onClick={() => onDeleteClick(id)}
+            onClick={() => onDeleteClick(userId)}
           >
             Delete
           </button>

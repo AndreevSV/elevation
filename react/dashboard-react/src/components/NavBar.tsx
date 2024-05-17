@@ -9,8 +9,8 @@ interface NavBarProps {
 
 function NavBar({ onSearchSubmit }: NavBarProps) {
   const navigate = useNavigate();
-  const loggedUser = useContext(UserContext);
-  console.log("🚀 ~ NavBar ~ loggedUser:", loggedUser)
+  const { id, email, firstName, lastName, role, clearUserContext } =
+    useContext(UserContext);
   const [searchValue, setSearchValue] = useState("");
 
   const isHomePage = useMatch("/");
@@ -18,8 +18,18 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
   const isEditPage = useMatch("/edit/:id");
   const isSignupPage = useMatch("/signup");
 
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   const logoutHandler = () => {
-    loggedUser.clearContext();
+    clearUserContext();
     navigate("/");
   };
 
@@ -30,40 +40,24 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand bg-body-tertiary">
       <div className="container-fluid">
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarTogglerDemo01"
-          aria-controls="navbarTogglerDemo01"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-           <ul className="navbar-nav nav-pills nav-fill me-auto mb-2 mb-lg-0"> 
+          <ul className="navbar-nav nav-pills nav-fill me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link
                 to="/"
                 className={`nav-link ${isHomePage ? " active" : ""}`}
                 aria-disabled="true"
-                onClick={logoutHandler}
               >
-                {loggedUser.email === "" ? "Login" : "LogOut"}
+                {email === "" ? "Login" : ""}
               </Link>
             </li>
             <li className="nav-item">
               <Link
                 to="/users"
                 className={`nav-link ${
-                  isUsersPage
-                    ? " active"
-                    : loggedUser.email === ""
-                    ? "disabled"
-                    : ""
+                  isUsersPage ? " active" : email === "" ? "disabled" : ""
                 }`}
                 aria-current="page"
               >
@@ -72,13 +66,9 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
             </li>
             <li className="nav-item">
               <Link
-                to={loggedUser.email ? `/edit/${loggedUser.id}` : "/edit"}
+                to={email ? `/edit/${id}` : "/edit"}
                 className={`nav-link ${
-                  isEditPage
-                    ? " active"
-                    : loggedUser.email === ""
-                    ? "disabled"
-                    : ""
+                  isEditPage ? " active" : email === "" ? "disabled" : ""
                 }`}
               >
                 Edit
@@ -88,16 +78,31 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
               <Link
                 to="/signup"
                 className={`nav-link ${
-                  isSignupPage 
-                  ? " active" 
-                  : loggedUser.email !== ""
-                  ? "disabled"
-                  : ""}`}
+                  isSignupPage ? " active" : email !== "" ? "disabled" : ""
+                }`}
               >
                 SignUp
               </Link>
             </li>
           </ul>
+
+          <div
+            className={`navbar-item me-2 active ${
+              isHovered ? "text-danger" : " text-primary"
+            } `}
+            onClick={logoutHandler}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            style={{ cursor: isHovered ? "pointer" : "default" }}
+          >
+            {`${
+              id !== ""
+                ? isHovered
+                  ? "Click here to Logout"
+                  : `Welcome, ${role} ${firstName} ${lastName}!`
+                : ""
+            }`}
+          </div>
           <form className="d-flex" role="search">
             <input
               className="form-control me-2 is-inactive"

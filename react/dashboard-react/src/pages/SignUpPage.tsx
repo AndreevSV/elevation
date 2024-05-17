@@ -1,11 +1,21 @@
-import users from "../mocks/jsons/users.json";
-import { useState, useEffect } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Role } from "../types/user";
 import makeUUID from "../utils/makeUUID";
 import { encryptStr } from "../utils/encryptStr";
 
 function SignUpPage() {
+  const {
+    setId,
+    setEmail,
+    setFirstName: setFirstNameContext,
+    setLastName: setLastNameContext,
+    setRole,
+    users,
+    setUsers,
+  } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState("");
@@ -38,9 +48,11 @@ function SignUpPage() {
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
     const password2 = formData.get("password2") as string;
+    console.log("🚀 ~ onSubmit ~ password2:", password2)
     const id = makeUUID();
 
     const password = encryptStr(password2);
+    console.log("🚀 ~ onSubmit ~ password:", password)
 
     const user: User = {
       id,
@@ -50,8 +62,13 @@ function SignUpPage() {
       password,
       role: Role.user,
     };
-    users.push(user);
-
+    const updatedUsers = [...users, user];
+    setUsers(updatedUsers);
+    setId(id);
+    setEmail(email);
+    setFirstNameContext(firstName);
+    setLastNameContext(lastName);
+    setRole(Role.user);
     navigate("/users");
   };
 

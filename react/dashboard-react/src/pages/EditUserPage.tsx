@@ -1,4 +1,3 @@
-import usersData from "../mocks/jsons/users.json";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { User, Role } from "../types/user";
@@ -7,14 +6,9 @@ import { UserContext } from "../contexts/UserContext";
 // import ModalWindow from "../components/ModalWindow";
 
 function EditUserPage() {
-  const userContext = useContext(UserContext);
-  const { id } = userContext;
-  console.log("🚀 ~ EditUserPage ~ id:", id);
-
+  const { id, role, users, setUsers, clearUserContext } =
+    useContext(UserContext);
   const { userId } = useParams<{ userId: string }>();
-  console.log("🚀 ~ EditUserPage ~ userId:", userId);
-
-  const [users, setUsers] = useState(usersData);
   const user = users.find((user) => user.id === userId);
 
   const navigate = useNavigate();
@@ -27,6 +21,9 @@ function EditUserPage() {
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState(decodedPassword);
   const [password2, setPassword2] = useState(decodedPassword);
+  const [selectedRole, setSelectedRole] = useState<Role>(
+    user?.role || Role.user
+  );
   const [symbolsNum, setSymbolsNum] = useState(8);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [feedbackEmail, setFeedbackEmail] = useState("Looks good!");
@@ -64,9 +61,11 @@ function EditUserPage() {
       lastName,
       email,
       password,
-      role: Role.user,
+      role: selectedRole,
     };
-    const usersUpdated = users.map((user) => user.id === id ? updatedUser: user);
+    const usersUpdated = users.map((user) =>
+      user.id === id ? updatedUser : user
+    );
     setUsers(usersUpdated);
     navigate("/users");
   };
@@ -75,7 +74,7 @@ function EditUserPage() {
     const usersUpdated = users.filter((user) => user.id !== userId);
     setUsers(usersUpdated);
     if (userId === id) {
-      userContext.clearContext();
+      clearUserContext();
       navigate("/");
     } else {
       navigate("/users");
@@ -133,6 +132,10 @@ function EditUserPage() {
         break;
     }
     return symbolsNum;
+  };
+
+  const onRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRole(e.target.value as Role);
   };
 
   return (
@@ -272,12 +275,10 @@ function EditUserPage() {
             className="form-control is-valid"
             id="validationServer05"
             name="Role"
-            value={user?.role}
             required
-            disabled={
-              user?.role !== Role.admin ||
-              (user?.role === Role.admin && user?.id === id)
-            }
+            disabled={role !== Role.admin}
+            value={selectedRole}
+            onChange={onRoleChange}
           >
             <option value={Role.user}>User</option>
             <option value={Role.admin}>Admin</option>
