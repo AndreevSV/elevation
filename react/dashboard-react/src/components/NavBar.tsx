@@ -1,13 +1,58 @@
+import i18n from "../i18n";
 import { Link, useMatch } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 interface NavBarProps {
   onSearchSubmit: (value: string) => void;
 }
 
+const DropDownLanguageMenu = () => {
+  const { t } = useTranslation();
+  const onMenuItemClick = (value: string): void => {
+    switch (value) {
+      case "en":
+        i18n.changeLanguage("en");
+        break;
+      case "de":
+        i18n.changeLanguage("de");
+        break;
+    }
+  };
+
+  return (
+    <div className="dropdown-menu show">
+      <a
+        className="dropdown-item"
+        onClick={() => {
+          console.log("English");
+          onMenuItemClick("en");
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        {t("english")}
+      </a>
+      <a
+        className="dropdown-item"
+        onClick={() => {
+          console.log("German");
+          onMenuItemClick("de");
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        {t("german")}
+      </a>
+    </div>
+  );
+};
+
 function NavBar({ onSearchSubmit }: NavBarProps) {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const { id, email, firstName, lastName, role, clearUserContext } =
     useContext(UserContext);
@@ -19,6 +64,14 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
   const isSignupPage = useMatch("/signup");
 
   const [isHovered, setIsHovered] = useState(false);
+
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+
+  const langIcon = <FontAwesomeIcon icon={faGlobe} />;
+
+  const onGlobeClick = () => {
+    setIsDropDownOpen(!isDropDownOpen);
+  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -44,13 +97,32 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul className="navbar-nav nav-pills nav-fill me-auto mb-2 mb-lg-0">
+            <li
+              className={`nav-item dropdown me-1 ${
+                isDropDownOpen ? "show" : ""
+              }`}
+              onMouseLeave={() => setIsDropDownOpen(false)}
+            >
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                onClick={onGlobeClick}
+                style={{ cursor: "pointer" }}
+              >
+                {langIcon}
+              </a>
+              {isDropDownOpen && <DropDownLanguageMenu />}
+            </li>
             <li className="nav-item">
               <Link
                 to="/"
                 className={`nav-link ${isHomePage ? " active" : ""}`}
                 aria-disabled="true"
               >
-                {email === "" ? "Login" : ""}
+                {email === "" ? t("login") : ""}
               </Link>
             </li>
             <li className="nav-item">
@@ -61,7 +133,7 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
                 }`}
                 aria-current="page"
               >
-                Users
+                {t("users")}
               </Link>
             </li>
             <li className="nav-item">
@@ -71,7 +143,7 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
                   isEditPage ? " active" : email === "" ? "disabled" : ""
                 }`}
               >
-                Edit
+                {t("edit")}
               </Link>
             </li>
             <li className="nav-item">
@@ -81,7 +153,7 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
                   isSignupPage ? " active" : email !== "" ? "disabled" : ""
                 }`}
               >
-                SignUp
+                {t("signup")}
               </Link>
             </li>
           </ul>
@@ -98,8 +170,8 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
             {`${
               id !== ""
                 ? isHovered
-                  ? "Click here to Logout"
-                  : `Welcome, ${role} ${firstName} ${lastName}!`
+                  ? t("click-here-to-logout")
+                  : `${t("welcome")}, ${role} ${firstName} ${lastName}!`
                 : ""
             }`}
           </div>
@@ -107,7 +179,7 @@ function NavBar({ onSearchSubmit }: NavBarProps) {
             <input
               className="form-control me-2 is-inactive"
               type="search"
-              placeholder="Search"
+              placeholder={t("search")}
               aria-label="Search"
               disabled={!useMatch("/users")}
               value={searchValue}

@@ -3,11 +3,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import { User, Role } from "../types/user";
 import { decipher, encryptStr } from "../utils/encryptStr";
 import { UserContext } from "../contexts/UserContext";
+import { useTranslation } from "react-i18next";
 // import ModalWindow from "../components/ModalWindow";
 
 function EditUserPage() {
-  const { id, role, users, setUsers, clearUserContext } =
-    useContext(UserContext);
+  const { t } = useTranslation();
+
+  const {
+    id,
+    role: roleContext,
+    users,
+    setUsers,
+    clearUserContext,
+  } = useContext(UserContext);
+
   const { userId } = useParams<{ userId: string }>();
   const user = users.find((user) => user.id === userId);
 
@@ -26,8 +35,8 @@ function EditUserPage() {
   );
   const [symbolsNum, setSymbolsNum] = useState(8);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [feedbackEmail, setFeedbackEmail] = useState("Looks good!");
-  const [validFeedback, setValidFeedback] = useState("valid-feedback");
+  const [isEmailValid, setIsEmailValid] = useState(1); // -1 - not valid, 0 - email already exist, 1 - email is Ok
+
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -35,14 +44,14 @@ function EditUserPage() {
       firstName.length >= 2 &&
       lastName.length >= 2 &&
       password.length >= 8 &&
-      feedbackEmail === "Looks good!" &&
-      password2 === password
+      password2 === password &&
+      isEmailValid === 1
     ) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
     }
-  }, [firstName, lastName, password, password2, feedbackEmail]);
+  }, [firstName, lastName, password, password2, isEmailValid]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,15 +104,13 @@ function EditUserPage() {
       (element) => element.email === str.trim()
     );
     if (index >= 0 && users[index].id !== userId) {
-      setFeedbackEmail("Such email already exist");
-      setValidFeedback("invalid-feedback");
+      // -1 - not valid, 0 - email already exist, 1 - email is Ok
+      setIsEmailValid(0);
     } else if (validateEmail(str.trim()) !== null) {
       setEmail(str.trim());
-      setFeedbackEmail("Looks good!");
-      setValidFeedback("valid-feedback");
+      setIsEmailValid(1);
     } else {
-      setFeedbackEmail("Invalid email");
-      setValidFeedback("invalid-feedback");
+      setIsEmailValid(-1);
     }
   };
 
@@ -141,10 +148,10 @@ function EditUserPage() {
   return (
     <>
       <form className="row g-3" onSubmit={onSubmit}>
-        <h1>Edit User</h1>
+        <h1>{t("edit-user")}</h1>
         <div className="col-md-4">
           <label htmlFor="validationServer01" className="form-label">
-            First name
+            {t("first-name")}
           </label>
           <input
             type="text"
@@ -166,7 +173,7 @@ function EditUserPage() {
         </div>
         <div className="col-md-4">
           <label htmlFor="validationServer02" className="form-label">
-            Last name
+            {t("last-name")}
           </label>
           <input
             type="text"
@@ -181,14 +188,14 @@ function EditUserPage() {
             onChange={onInputCheck}
           />
           {lastName.length >= 2 ? (
-            <div className="valid-feedback">Looks good!</div>
+            <div className="valid-feedback">{t("looks-good")}</div>
           ) : (
-            <div className="invalid-feedback">Please type a last name</div>
+            <div className="invalid-feedback">{t("please-type-a-last-name")}</div>
           )}
         </div>
         <div className="col-md-4">
           <label htmlFor="validationServerUsername" className="form-label">
-            Email
+            {t("email")}
           </label>
           <div className="input-group has-validation">
             <span className="input-group-text" id="inputGroupPrepend3">
@@ -197,7 +204,7 @@ function EditUserPage() {
             <input
               type="text"
               className={`form-control ${
-                validFeedback === "valid-feedback" ? "is-valid" : "is-invalid"
+                isEmailValid === 1 ? "is-valid" : "is-invalid"
               }`}
               id="validationServerUsername"
               name="email"
@@ -207,17 +214,22 @@ function EditUserPage() {
               required
               onChange={onInputEmail}
             />
-            <div
-              id="validationServerUsernameFeedback"
-              className={validFeedback}
-            >
-              {feedbackEmail}
-            </div>
+            {isEmailValid === 1 ? (
+              <div className="valid-feedback">{t("looks-good")}</div>
+            ) : isEmailValid === -1 ? (
+              <div className="invalid-feedback">
+                {t("please-type-an-email")}
+              </div>
+            ) : (
+              <div className="invalid-feedback">
+                {t("such-email-already-exist")}
+              </div>
+            )}
           </div>
         </div>
         <div className="col-md-4">
           <label htmlFor="validationServer03" className="form-label">
-            Password
+            {t("password")}
           </label>
           <input
             type="password"
@@ -232,16 +244,16 @@ function EditUserPage() {
             onChange={onInputCheck}
           />
           {password.length >= 8 ? (
-            <div className="valid-feedback">Looks good!</div>
+            <div className="valid-feedback">{t("looks-good")}</div>
           ) : (
             <div className="invalid-feedback">
-              Please type {symbolsNum} symbols
+              {t("please-type-symbolsnum-symbols-0")}
             </div>
           )}
         </div>
         <div className="col-md-4">
           <label htmlFor="validationServer04" className="form-label">
-            Duplicate password
+            {t("repeat-the-password")}
           </label>
           <input
             type="password"
@@ -262,21 +274,21 @@ function EditUserPage() {
           {password.length >= 8 &&
           password2.length >= 8 &&
           password2 === password ? (
-            <div className="valid-feedback">Looks good!</div>
+            <div className="valid-feedback">{t("looks-good")}</div>
           ) : (
-            <div className="invalid-feedback">Passwords not equal</div>
+            <div className="invalid-feedback">{t("passwords-not-equal")}</div>
           )}
         </div>
         <div className="col-md-4">
           <label htmlFor="validationServer04" className="form-label">
-            Role
+            {t("role")}
           </label>
           <select
             className="form-control is-valid"
             id="validationServer05"
             name="Role"
             required
-            disabled={role !== Role.admin}
+            disabled={roleContext !== Role.admin || (roleContext === Role.admin && id === user?.id)}
             value={selectedRole}
             onChange={onRoleChange}
           >
@@ -284,9 +296,9 @@ function EditUserPage() {
             <option value={Role.admin}>Admin</option>
           </select>
           {user?.role === Role.admin ? (
-            <div className="valid-feedback">You can choose a Role</div>
+            <div className="valid-feedback">{t("you-can-choose-a-role")}</div>
           ) : (
-            <div className="valid-feedback">You role is User</div>
+            <div className="valid-feedback">{t("you-role-is-user")}</div>
           )}
         </div>
         <div className="d-flex justify-content-center col-12 mb-2">
@@ -295,7 +307,7 @@ function EditUserPage() {
             disabled={isButtonDisabled}
             type="submit"
           >
-            Submit
+            {t("submit")}
           </button>
           <button
             className={`btn btn-danger mb-2 mx-2`}
@@ -306,7 +318,7 @@ function EditUserPage() {
             // onClick={() => setIsModalOpen(true)}
             onClick={() => userId && onDeleteClick(userId)}
           >
-            Delete
+            {t("delete")}
           </button>
         </div>
       </form>

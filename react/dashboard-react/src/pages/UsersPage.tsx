@@ -2,12 +2,14 @@ import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import makeUUID from "../utils/makeUUID";
+import {useTranslation} from 'react-i18next'
 
 interface UsersPageProps {
   searchString: string;
 }
 
 function UsersPage({ searchString }: UsersPageProps) {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const { id, role, users, setUsers } = useContext(UserContext);
 
@@ -46,7 +48,7 @@ function UsersPage({ searchString }: UsersPageProps) {
             type="submit"
             onClick={() => onEditClick(userId)}
           >
-            Edit
+            {t('edit')}
           </button>
         </td>
         <td>
@@ -57,7 +59,7 @@ function UsersPage({ searchString }: UsersPageProps) {
             type="submit"
             onClick={() => onDeleteClick(userId)}
           >
-            Delete
+            {t('delete')}
           </button>
         </td>
       </tr>
@@ -66,17 +68,17 @@ function UsersPage({ searchString }: UsersPageProps) {
 
   return (
     <>
-      <h1>Users List</h1>
+      <h1>{t('users-list')}</h1>
       <table className="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{t('first-name')}</th>
+            <th scope="col">{t("last-name")}</th>
+            <th scope="col">{t('email')}</th>
+            <th scope="col">{t('role')}</th>
+            <th scope="col">{t('edit')}</th>
+            <th scope="col">{t('delete')}</th>
           </tr>
         </thead>
         <tbody>{usersList}</tbody>

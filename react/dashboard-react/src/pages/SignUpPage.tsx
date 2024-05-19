@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { User, Role } from "../types/user";
 import makeUUID from "../utils/makeUUID";
 import { encryptStr } from "../utils/encryptStr";
+import { useTranslation } from "react-i18next";
 
 function SignUpPage() {
+  const { t } = useTranslation();
+
   const {
     setId,
-    setEmail,
+    setEmail: setEmailContext,
     setFirstName: setFirstNameContext,
     setLastName: setLastNameContext,
     setRole,
@@ -20,12 +23,12 @@ function SignUpPage() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(-1); // -1 - not valid, 0 - email already exist, 1 - email is Ok
   const [symbolsNum, setSymbolsNum] = useState(8);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [feedbackEmail, setFeedbackEmail] = useState("Please type an email.");
-  const [validFeedback, setValidFeedback] = useState("invalid-feedback");
 
   useEffect(() => {
     if (
@@ -33,13 +36,13 @@ function SignUpPage() {
       lastName.length >= 2 &&
       password.length >= 8 &&
       password2 === password &&
-      feedbackEmail === "Looks good!"
+      isEmailValid === 1
     ) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
     }
-  }, [firstName, lastName, password, password2, feedbackEmail]);
+  }, [firstName, lastName, password, password2, isEmailValid]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,12 +51,9 @@ function SignUpPage() {
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
     const password2 = formData.get("password2") as string;
-    console.log("🚀 ~ onSubmit ~ password2:", password2)
     const id = makeUUID();
 
     const password = encryptStr(password2);
-    console.log("🚀 ~ onSubmit ~ password:", password)
-
     const user: User = {
       id,
       firstName,
@@ -62,13 +62,17 @@ function SignUpPage() {
       password,
       role: Role.user,
     };
+    
+
     const updatedUsers = [...users, user];
+
     setUsers(updatedUsers);
     setId(id);
-    setEmail(email);
+    setEmailContext(email);
     setFirstNameContext(firstName);
     setLastNameContext(lastName);
     setRole(Role.user);
+    console.log("🚀 ~ onSubmit ~ user:", user)
     navigate("/users");
   };
 
@@ -86,14 +90,13 @@ function SignUpPage() {
       (element) => element.email === str.trim()
     );
     if (index >= 0) {
-      setFeedbackEmail("Such email already exist");
-      setValidFeedback("invalid-feedback");
-    } else if (validateEmail(str) !== null) {
-      setFeedbackEmail("Looks good!");
-      setValidFeedback("valid-feedback");
+      // -1 - not valid, 0 - email already exist, 1 - email is Ok
+      setIsEmailValid(0);
+    } else if (validateEmail(str.trim()) !== null) {
+      setEmail(str.trim());
+      setIsEmailValid(1);
     } else {
-      setFeedbackEmail("Invalid email");
-      setValidFeedback("invalid-feedback");
+      setIsEmailValid(-1);
     }
   };
 
@@ -126,10 +129,10 @@ function SignUpPage() {
 
   return (
     <form className="row g-3" onSubmit={onSubmit}>
-      <h1>SignUp</h1>
+      <h1>{t("signup")}</h1>
       <div className="col-md-4">
         <label htmlFor="validationServer01" className="form-label">
-          First name
+          {t("first-name")}
         </label>
         <input
           type="text"
@@ -144,14 +147,14 @@ function SignUpPage() {
           onChange={onInputCheck}
         />
         {firstName.length >= 2 ? (
-          <div className="valid-feedback">Looks good!</div>
+          <div className="valid-feedback">{t("looks-good")}</div>
         ) : (
-          <div className="invalid-feedback">Please type first name</div>
+          <div className="invalid-feedback">{t("please-type-first-name")}</div>
         )}
       </div>
       <div className="col-md-4">
         <label htmlFor="validationServer02" className="form-label">
-          Last name
+          {t("last-name")}
         </label>
         <input
           type="text"
@@ -166,14 +169,14 @@ function SignUpPage() {
           onChange={onInputCheck}
         />
         {lastName.length >= 2 ? (
-          <div className="valid-feedback">Looks good!</div>
+          <div className="valid-feedback">{t("looks-good")}</div>
         ) : (
-          <div className="invalid-feedback">Please type a last name</div>
+          <div className="invalid-feedback">{t("please-type-a-last-name")}</div>
         )}
       </div>
       <div className="col-md-4">
         <label htmlFor="validationServerUsername" className="form-label">
-          Email
+          {t("email")}
         </label>
         <div className="input-group has-validation">
           <span className="input-group-text" id="inputGroupPrepend3">
@@ -182,23 +185,31 @@ function SignUpPage() {
           <input
             type="text"
             className={`form-control ${
-              validFeedback === "valid-feedback" ? "is-valid" : "is-invalid"
+              isEmailValid === 1 ? "is-valid" : "is-invalid"
             }`}
             id="validationServerUsername"
             name="email"
             placeholder="email"
             aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
             required
+            defaultValue={email}
             onChange={onInputEmail}
           />
-          <div id="validationServerUsernameFeedback" className={validFeedback}>
-            {feedbackEmail}
-          </div>
+
+          {isEmailValid === 1 ? (
+            <div className="valid-feedback">{t("looks-good")}</div>
+          ) : isEmailValid === -1 ? (
+            <div className="invalid-feedback">{t("please-type-an-email")}</div>
+          ) : (
+            <div className="invalid-feedback">
+              {t("such-email-already-exist")}
+            </div>
+          )}
         </div>
       </div>
       <div className="col-md-4">
         <label htmlFor="validationServer03" className="form-label">
-          Password
+          {t("password")}
         </label>
         <input
           type="password"
@@ -213,16 +224,16 @@ function SignUpPage() {
           onChange={onInputCheck}
         />
         {password.length >= 8 ? (
-          <div className="valid-feedback">Looks good!</div>
+          <div className="valid-feedback">{t("looks-good")}</div>
         ) : (
           <div className="invalid-feedback">
-            Please type {symbolsNum} symbols
+            {t("please-type")} {symbolsNum} {t("symbols")}
           </div>
         )}
       </div>
       <div className="col-md-4">
         <label htmlFor="validationServer04" className="form-label">
-          Duplicate password
+          {t("repeat-the-password")}
         </label>
         <input
           type="password"
@@ -243,9 +254,9 @@ function SignUpPage() {
         {password.length >= 8 &&
         password2.length >= 8 &&
         password2 === password ? (
-          <div className="valid-feedback">Looks good!</div>
+          <div className="valid-feedback">{t("looks-good")}</div>
         ) : (
-          <div className="invalid-feedback">Passwords not equal</div>
+          <div className="invalid-feedback">{t("passwords-not-equal")}</div>
         )}
       </div>
       <div className="col-12">
@@ -253,7 +264,7 @@ function SignUpPage() {
           className={`btn btn-primary ${isButtonDisabled ? " disabled" : ""}`}
           type="submit"
         >
-          Submit
+          {t("submit")}
         </button>
       </div>
     </form>

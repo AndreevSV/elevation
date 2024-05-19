@@ -2,9 +2,11 @@ import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { User } from "../types/user";
-import { decipher } from "../utils/encryptStr"
+// import { decipher } from "../utils/encryptStr"
+import {useTranslation} from 'react-i18next'
 
 function LoginPage() {
+  const {t} = useTranslation();
   const [underFromText, setUnderFromText] = useState<string>("");
 
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ function LoginPage() {
       return false;
     }
 
-    const decryptedPassword = decipher('SECRET')(users[index].password);
+    const decryptedPassword = password;//decipher('SECRET')(users[index].password);
     console.log("🚀 ~ validateUser ~ decryptedPassword:", decryptedPassword)
 
     if (decryptedPassword !== password) {
@@ -55,18 +57,18 @@ function LoginPage() {
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
-      <h1>Please, login</h1>
+      <h1>{t('please-login')}</h1>
       <h6>
-        or tap{" "}
+        {t('or-tap')}{" "}
         <span>
           {" "}
-          <Link to="/signup">SignUp</Link>{" "}
+          <Link to="/signup">{t('signup')}</Link>{" "}
         </span>{" "}
-        link{" "}
+        {t('link')}{" "}
       </h6>
       <div className="mb-3">
         <label htmlFor="exampleInputEmail1" className="form-label">
-          Email address
+          {t('email-address')}
         </label>
         <input
           type="email"
@@ -85,7 +87,7 @@ function LoginPage() {
       </div>
       <div className="mb-3">
         <label htmlFor="exampleInputPassword1" className="form-label">
-          Password
+          {t('password')}
         </label>
         <input
           type="password"
@@ -102,7 +104,7 @@ function LoginPage() {
         {underFromText}
       </div>
       <button type="submit" className="btn btn-primary">
-        Submit
+        {t('submit')}
       </button>
     </form>
   );
